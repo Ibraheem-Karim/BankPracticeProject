@@ -1,0 +1,130 @@
+<div class="home-container">
+  <!-- Header Section -->
+  <header class="bg-primary text-white py-4">
+    <div class="container">
+      <h1 class="display-4">Welcome to Global Bank</h1>
+      <p class="lead">Your trusted financial partner</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container my-5">
+    <!-- Guest View -->
+    <!-- <div *ngIf="!authService.isLoggedIn()" class="guest-view text-center"> -->
+    <div *ngIf="true" class="guest-view text-center">
+      <div class="card shadow-lg">
+        <div class="card-body p-5">
+          <h2 class="card-title mb-4">Welcome to Our Banking Platform</h2>
+          <p class="card-text mb-5">
+            Manage your finances with ease. Sign in to access your accounts or
+            register if you're new to our platform.
+          </p>
+          <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+            <button
+              routerLink="/customer/sign-in"
+              class="btn btn-primary btn-lg px-4 me-md-2"
+            >
+              Sign In
+            </button>
+            <button
+              routerLink="/customer/sign-up"
+              class="btn btn-outline-primary btn-lg px-4"
+            >
+              Register
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Authenticated User View -->
+    <!-- <div *ngIf="authService.isLoggedIn()" class="authenticated-view"> -->
+    <div *ngIf="true" class="authenticated-view">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card shadow">
+            <div class="card-header bg-white">
+              <!-- <h2 class="mb-0">Welcome back, {{ authService.currentUser?.firstName }}!</h2> -->
+              <h2 class="mb-0">Welcome back, Unknown!</h2>
+            </div>
+            <div class="card-body">
+              <div class="row g-4">
+                <!-- Quick Actions -->
+                <div class="col-md-6">
+                  <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                      <i
+                        class="bi bi-arrow-left-right display-4 text-primary mb-3"
+                      ></i>
+                      <h3 class="card-title">Make a Transaction</h3>
+                      <p class="card-text">
+                        Transfer money between your accounts or to other
+                        customers.
+                      </p>
+                      <button
+                        (click)="navigateTo('/transactions/new')"
+                        class="btn btn-primary mt-3"
+                      >
+                        Start Transaction
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                      <i
+                        class="bi bi-plus-circle display-4 text-success mb-3"
+                      ></i>
+                      <h3 class="card-title">Open New Account</h3>
+                      <p class="card-text">
+                        Create a new checking, savings, or investment account.
+                      </p>
+                      <button
+                        (click)="navigateTo('/accounts/new')"
+                        class="btn btn-success mt-3"
+                      >
+                        Create Account
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                      <div
+                        class="d-flex justify-content-between align-items-center mb-3"
+                      >
+                        <h3 class="mb-0">Your Accounts</h3>
+                        <button
+                          (click)="navigateTo('/accounts')"
+                          class="btn btn-outline-secondary"
+                        >
+                          View All
+                        </button>
+                      </div>
+                      <!-- Account Summary Component would go here -->
+                      <div class="alert alert-info">
+                        Account summaries will be displayed here. Currently
+                        showing placeholder.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container text-center">
+      <p class="mb-0">© 2023 Global Bank. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

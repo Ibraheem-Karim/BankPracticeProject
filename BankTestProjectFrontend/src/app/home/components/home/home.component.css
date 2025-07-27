@@ -1,0 +1,37 @@
+.home-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-container main {
+  flex: 1;
+}
+
+.home-container .guest-view {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.home-container .guest-view .card {
+  border: none;
+  border-radius: 15px;
+}
+
+.home-container .authenticated-view .card {
+  border-radius: 10px;
+}
+
+.home-container .authenticated-view .card-body i {
+  opacity: 0.8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .home-container header h1 {
+    font-size: 2rem;
+  }
+  .home-container header p {
+    font-size: 1rem;
+  }
+}
