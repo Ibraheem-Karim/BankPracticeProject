@@ -29,13 +29,13 @@ namespace BankTestProjectBackendOnion.API
             });
 
             // Register DbContext 
-            builder.Services.AddDbContext<IdentityDbContext>(options =>
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
           options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
             //Register Identity
             builder.Services.AddIdentity<Customer, IdentityRole>()
-            .AddEntityFrameworkStores<IdentityDbContext>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
 
