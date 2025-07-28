@@ -6,6 +6,7 @@ using BankTestProjectBackend.Repositories;
 using BankTestProjectBackend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BankTestProjectBackend
@@ -52,6 +53,10 @@ namespace BankTestProjectBackend
             });
 
             builder.Services.AddAuthorization();
+
+            // Register DbContext 
+            builder.Services.AddDbContext<BankPracticeContext>(options =>
+          options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 

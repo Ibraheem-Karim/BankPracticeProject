@@ -14,6 +14,7 @@ public partial class BankPracticeContext : IdentityDbContext<Customer>
     }
 
     // Only your custom DbSets (Identity tables are handled by the base class)
+    public virtual DbSet<Customer> Customers { get; set; }
     public virtual DbSet<Account> Accounts { get; set; }
     public virtual DbSet<Transaction> Transactions { get; set; }
 

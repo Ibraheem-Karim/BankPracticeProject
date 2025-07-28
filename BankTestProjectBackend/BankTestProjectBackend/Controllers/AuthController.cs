@@ -36,10 +36,11 @@ namespace BankTestProjectBackend.Controllers
             {
                 var user = new Customer
                 {
-                    UserName = registerDto.Email,
                     Email = registerDto.Email,
                     PhoneNumber = registerDto.Phone,  // Map phone from DTO
+                    Phone = registerDto.Phone,  // Map phone from DTO
                     FullName = registerDto.FullName,
+                    UserName = registerDto.FullName,
                     CreatedAt = DateTime.UtcNow,
                     CustomerId = Guid.NewGuid().ToString()
                 };
