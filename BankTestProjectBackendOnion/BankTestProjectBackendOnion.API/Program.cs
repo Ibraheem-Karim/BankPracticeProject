@@ -1,5 +1,7 @@
 using System.Text;
 using BankTestProjectBackend.Repositories;
+using BankTestProjectBackendOnion.API.Middlewares;
+using BankTestProjectBackendOnion.Application.Mappings;
 using BankTestProjectBackendOnion.Application.Service_interfaces;
 using BankTestProjectBackendOnion.Domain.Entities;
 using BankTestProjectBackendOnion.Domain.Repository_interfaces;
@@ -11,6 +13,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using AutoMapper;  
+
 
 namespace BankTestProjectBackendOnion.API
 {
@@ -107,6 +111,11 @@ namespace BankTestProjectBackendOnion.API
             builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 
+            //Register automapper
+            builder.Services.AddAutoMapper(typeof(AuthMappingProfile).Assembly);
+
+
+
 
 
 
@@ -119,7 +128,7 @@ namespace BankTestProjectBackendOnion.API
                 app.UseSwaggerUI();
             }
 
-
+            app.UseMiddleware<LoggingMiddleware>();
 
             app.UseAuthentication();
 

@@ -1,4 +1,5 @@
-﻿using BankTestProjectBackendOnion.Application.DTOs.Auth;
+﻿using AutoMapper;
+using BankTestProjectBackendOnion.Application.DTOs.Auth;
 using BankTestProjectBackendOnion.Application.Service_interfaces;
 using BankTestProjectBackendOnion.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -10,26 +11,25 @@ namespace BankTestProjectBackendOnion.Infrastructure.Services
         private readonly UserManager<Customer> _userManager;
         private readonly SignInManager<Customer> _signInManager;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
+        private readonly IMapper _mapper;
+
 
         public AuthService(
             UserManager<Customer> userManager,
             SignInManager<Customer> signInManager,
-            IJwtTokenGenerator jwtTokenGenerator)
+            IJwtTokenGenerator jwtTokenGenerator,
+            IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _jwtTokenGenerator = jwtTokenGenerator;
+            _mapper = mapper;
         }
 
         public async Task<AuthResultDto> RegisterAsync(RegisterDto dto)
         {
-            var user = new Customer
-            {
-                UserName = dto.Email,
-                Email = dto.Email,
-                FullName = dto.FullName,
-                CreatedAt = DateTime.UtcNow
-            };
+            var user = _mapper.Map<Customer>(dto);
+
 
             var result = await _userManager.CreateAsync(user, dto.Password);
 
