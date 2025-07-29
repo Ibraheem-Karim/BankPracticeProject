@@ -1,13 +1,9 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using BankTestProjectBackendOnion.Domain.Entities;
 
-//namespace BankTestProjectBackendOnion.Application.Service_interfaces
-//{
-//    public interface IJwtTokenGenerator
-//    {
-//        string GenerateJwtToken(Customer user);
-//    }
-//}
+namespace BankTestProjectBackendOnion.Application.Service_interfaces
+{
+    public interface IJwtTokenGenerator
+    {
+        string GenerateJwtToken(Customer user);
+    }
+}

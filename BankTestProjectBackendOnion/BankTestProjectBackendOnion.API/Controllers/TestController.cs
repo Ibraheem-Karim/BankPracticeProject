@@ -11,6 +11,7 @@ namespace BankTestProjectBackendOnion.API.Controllers
     {
         // Open endpoint (no auth required)
         [HttpGet("public")]
+        [AllowAnonymous]
         public IActionResult PublicEndpoint()
         {
             return Ok(new

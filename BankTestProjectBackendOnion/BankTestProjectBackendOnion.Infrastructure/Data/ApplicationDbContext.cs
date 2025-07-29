@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using BankTestProjectBackendOnion.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankTestProjectBackendOnion.Infrastructure.Data;
 
-public partial class ApplicationDbContext : DbContext
+public partial class ApplicationDbContext : IdentityDbContext<Customer>
 {
     public ApplicationDbContext()
     {
@@ -15,6 +16,7 @@ public partial class ApplicationDbContext : DbContext
         : base(options)
     {
     }
+
 
     public virtual DbSet<Account> Accounts { get; set; }
 
@@ -26,6 +28,8 @@ public partial class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Account>(entity =>
         {
             entity.HasKey(e => e.AccountId).HasName("PK__Accounts__349DA5A679D671E2");
@@ -48,6 +52,8 @@ public partial class ApplicationDbContext : DbContext
 
             entity.HasOne(d => d.Account).WithMany(p => p.Transactions).HasForeignKey(d => d.AccountId);
         });
+
+        modelBuilder.Entity<Customer>().ToTable("AspNetUsers");
 
         OnModelCreatingPartial(modelBuilder);
     }
