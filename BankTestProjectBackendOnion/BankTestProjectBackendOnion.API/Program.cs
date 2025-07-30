@@ -1,6 +1,8 @@
 using System.Text;
+using AutoMapper;  
 using BankTestProjectBackend.Repositories;
 using BankTestProjectBackendOnion.API.Middlewares;
+using BankTestProjectBackendOnion.Application.Commands;
 using BankTestProjectBackendOnion.Application.Mappings;
 using BankTestProjectBackendOnion.Application.Service_interfaces;
 using BankTestProjectBackendOnion.Domain.Entities;
@@ -13,7 +15,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using AutoMapper;  
 
 
 namespace BankTestProjectBackendOnion.API
@@ -113,6 +114,12 @@ namespace BankTestProjectBackendOnion.API
 
             //Register automapper
             builder.Services.AddAutoMapper(typeof(AuthMappingProfile).Assembly);
+
+
+            //Register mediatR
+            builder.Services.AddMediatR(cfg =>
+            cfg.RegisterServicesFromAssembly(typeof(CreateAccountCommand).Assembly));
+
 
 
 
