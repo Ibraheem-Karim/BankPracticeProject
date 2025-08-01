@@ -63,6 +63,14 @@ namespace BankTestProjectBackendOnion.API
             builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             builder.Services.AddScoped<IAuthService, AuthService>();
 
+            // Define the CORS policy
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularApp",
+                    policy => policy.WithOrigins("http://localhost:4200")
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod());
+            });
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -137,9 +145,17 @@ namespace BankTestProjectBackendOnion.API
 
             app.UseMiddleware<LoggingMiddleware>();
 
+
+
+            // Apply the CORS policy
+            app.UseCors("AllowAngularApp");
+
+
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+
 
 
             app.MapControllers();
