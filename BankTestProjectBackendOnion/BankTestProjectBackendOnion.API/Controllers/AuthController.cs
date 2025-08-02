@@ -1,13 +1,13 @@
-﻿using BankTestProjectBackendOnion.Application.DTOs.Auth;
-using BankTestProjectBackendOnion.Application.Service_interfaces;
+﻿using System.Security.Claims;
 using BankTestProjectBackendOnion.API.Responses;
+using BankTestProjectBackendOnion.Application.DTOs.Auth;
+using BankTestProjectBackendOnion.Application.Service_interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankTestProjectBackendOnion.API.Controllers
 {
     [ApiController]
-    [AllowAnonymous]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
@@ -17,6 +17,8 @@ namespace BankTestProjectBackendOnion.API.Controllers
         {
             _authService = authService;
         }
+
+        [AllowAnonymous]
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto dto)
@@ -28,6 +30,8 @@ namespace BankTestProjectBackendOnion.API.Controllers
 
             return Ok(new ApiResponse<object>(result, "User registered successfully"));
         }
+
+        [AllowAnonymous]
 
         [HttpPost("login")]
 
@@ -48,5 +52,27 @@ namespace BankTestProjectBackendOnion.API.Controllers
             return Ok(new ApiResponse<string>(null, "Logged out successfully"));
 
         }
+
+
+        [Authorize]
+        [HttpGet("account-number")]
+        public async Task<IActionResult> GetAccountNumber()
+        {
+            var email = User.FindFirstValue(ClaimTypes.NameIdentifier); // Contains email
+            if (string.IsNullOrEmpty(email)) return Unauthorized();
+
+            var customerId = await _authService.GetCustomerIdByEmailAsync(email);
+            if (customerId == null) return NotFound("Customer not found");
+
+
+            var accountNumber = await _authService.GetAccountNumberByCustomerIdAsync(customerId);
+
+            if (accountNumber == null)
+                return NotFound(new { message = "Account not found" });
+
+            return Ok(new { data = accountNumber });
+        }
+
+
     }
 }

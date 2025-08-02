@@ -17,21 +17,23 @@ namespace BankTestProjectBackend.Repositories
         public async Task<IEnumerable<Transaction>> GetAllAsync()
         {
             return await _context.Transactions
-                .Include(t => t.Account)
+                .Include(t => t.FromAccount)
+                .Include(t => t.ToAccount)
                 .ToListAsync();
         }
 
         public async Task<Transaction?> GetByIdAsync(int transactionId)
         {
             return await _context.Transactions
-                .Include(t => t.Account)
+                .Include(t => t.FromAccount)
+                .Include(t => t.ToAccount)
                 .FirstOrDefaultAsync(t => t.TransactionId == transactionId);
         }
 
         public async Task<IEnumerable<Transaction>> GetByAccountIdAsync(int accountId)
         {
             return await _context.Transactions
-                .Where(t => t.AccountId == accountId)
+                .Where(t => t.FromAccountId == accountId || t.ToAccountId == accountId)
                 .OrderByDescending(t => t.CreatedAt)
                 .ToListAsync();
         }

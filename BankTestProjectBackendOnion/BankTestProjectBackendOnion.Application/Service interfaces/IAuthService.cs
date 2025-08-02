@@ -7,5 +7,10 @@ namespace BankTestProjectBackendOnion.Application.Service_interfaces
         Task<AuthResultDto> RegisterAsync(RegisterDto dto);
         Task<AuthResultDto> LoginAsync(LoginDto dto);
         Task LogoutAsync();
+
+        Task<string?> GetAccountNumberByCustomerIdAsync(string customerId);
+
+        Task<string?> GetCustomerIdByEmailAsync(string email);
+
     }
 }

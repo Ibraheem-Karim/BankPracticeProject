@@ -2,6 +2,7 @@
 using BankTestProjectBackendOnion.Application.DTOs.Auth;
 using BankTestProjectBackendOnion.Application.Service_interfaces;
 using BankTestProjectBackendOnion.Domain.Entities;
+using BankTestProjectBackendOnion.Domain.Repository_interfaces;
 using Microsoft.AspNetCore.Identity;
 
 namespace BankTestProjectBackendOnion.Infrastructure.Services
@@ -12,19 +13,23 @@ namespace BankTestProjectBackendOnion.Infrastructure.Services
         private readonly SignInManager<Customer> _signInManager;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly IMapper _mapper;
-
+        private readonly IAccountRepository _accountRepository;
 
         public AuthService(
             UserManager<Customer> userManager,
             SignInManager<Customer> signInManager,
             IJwtTokenGenerator jwtTokenGenerator,
-            IMapper mapper)
+            IMapper mapper,
+            IAccountRepository accountRepository) // add this
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _jwtTokenGenerator = jwtTokenGenerator;
             _mapper = mapper;
+            _accountRepository = accountRepository;
         }
+
+        
 
         public async Task<AuthResultDto> RegisterAsync(RegisterDto dto)
         {
@@ -89,5 +94,26 @@ namespace BankTestProjectBackendOnion.Infrastructure.Services
             // JWT is stateless, logout is client-side
             return Task.CompletedTask;
         }
+
+        public async Task<string?> GetAccountNumberByCustomerIdAsync(string customerId)
+        {
+            var accounts = await _accountRepository.GetByCustomerIdAsync(customerId);
+
+            var latestActiveAccount = accounts?
+                .Where(a => a.IsActive)
+                .OrderByDescending(a => a.CreatedAt)
+                .FirstOrDefault();
+
+            return latestActiveAccount?.AccountNumber;
+        }
+
+        public async Task<string?> GetCustomerIdByEmailAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            return user?.Id;
+        }
+
+
+
     }
 }

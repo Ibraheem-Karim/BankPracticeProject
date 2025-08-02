@@ -1,1 +1,29 @@
-<p>new-transaction works!</p>
+<div class="new-transaction-container">
+  <h2>Send Money</h2>
+  <form [formGroup]="transactionForm" (ngSubmit)="submitTransaction()">
+    <div class="form-group">
+      <label>To Account Number</label>
+      <input formControlName="toAccountNumber" type="text" />
+    </div>
+
+    <div class="form-group">
+      <label>Amount</label>
+      <input formControlName="amount" type="number" />
+    </div>
+
+    <div class="form-group">
+      <label>Transaction Type</label>
+      <input formControlName="transactionType" type="text" />
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea formControlName="description"></textarea>
+    </div>
+
+    <button type="submit" [disabled]="transactionForm.invalid">Send</button>
+
+    <div *ngIf="successMessage" class="success-msg">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
+  </form>
+</div>

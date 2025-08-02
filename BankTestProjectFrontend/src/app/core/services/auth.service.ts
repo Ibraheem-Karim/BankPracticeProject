@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { Observable, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -54,4 +54,12 @@ export class AuthService {
       return null;
     }
   }
+
+  getAccountNumberFromApi(): Observable<string> {
+  return this.http.get<{ data: string }>(`${this.apiUrl}/account-number`).pipe(
+    map(res => res.data)
+  );
+}
+
+
 }
