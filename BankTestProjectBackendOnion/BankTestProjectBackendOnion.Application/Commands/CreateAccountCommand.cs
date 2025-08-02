@@ -1,11 +1,16 @@
-﻿using MediatR;
+﻿using BankTestProjectBackendOnion.Application.DTOs.Account;
+using MediatR;
 
 namespace BankTestProjectBackendOnion.Application.Commands
 {
-    public class CreateAccountCommand : IRequest<int> // returns AccountId
+    public class CreateAccountCommand : IRequest<int>
     {
-        public string AccountNumber { get; set; } = null!;
-        public decimal InitialBalance { get; set; }
-        public string CustomerId { get; set; } = null!;
+        public CreateAccountDto Dto { get; set; }
+
+        public CreateAccountCommand(CreateAccountDto dto)
+        {
+            Dto = dto;
+        }
     }
+
 }

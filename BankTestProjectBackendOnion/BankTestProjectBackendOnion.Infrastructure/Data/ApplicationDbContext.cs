@@ -50,8 +50,22 @@ public partial class ApplicationDbContext : IdentityDbContext<Customer>
             entity.Property(e => e.Description).HasMaxLength(250);
             entity.Property(e => e.TransactionType).HasMaxLength(20);
 
-            entity.HasOne(d => d.Account).WithMany(p => p.Transactions).HasForeignKey(d => d.AccountId);
+
         });
+
+        modelBuilder.Entity<Transaction>()
+            .HasOne(t => t.FromAccount)
+            .WithMany(a => a.TransactionsSent)
+            .HasForeignKey(t => t.FromAccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Transaction>()
+            .HasOne(t => t.ToAccount)
+            .WithMany(a => a.TransactionsReceived)
+            .HasForeignKey(t => t.ToAccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+
 
         modelBuilder.Entity<Customer>().ToTable("AspNetUsers");
 

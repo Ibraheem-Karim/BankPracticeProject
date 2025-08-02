@@ -29,6 +29,8 @@ namespace BankTestProjectBackendOnion.Infrastructure.Services
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
+                    new Claim("customerId", user.Id), // ✅ explicitly added
+
                 new Claim(ClaimTypes.Name, user.FullName),
                 new Claim(ClaimTypes.Email, user.Email)
             };

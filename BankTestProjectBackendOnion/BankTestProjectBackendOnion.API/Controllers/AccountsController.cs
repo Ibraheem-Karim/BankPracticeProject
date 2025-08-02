@@ -1,5 +1,7 @@
 ﻿using BankTestProjectBackendOnion.Application.Commands;
-using MediatR; 
+using BankTestProjectBackendOnion.Application.DTOs.Account;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankTestProjectBackendOnion.API.Controllers
@@ -16,10 +18,12 @@ namespace BankTestProjectBackendOnion.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAccount([FromBody] CreateAccountCommand command)
+        public async Task<IActionResult> CreateAccount([FromBody] CreateAccountDto dto)
         {
-            var accountId = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetLatestAccountById), new { id = accountId }, null);
+            var command = new CreateAccountCommand(dto);
+            var newAccountId = await _mediator.Send(command);
+
+            return CreatedAtAction(nameof(GetLatestAccountById), new { id = newAccountId }, newAccountId);
         }
 
         // Optional: stub for GetAccountById so the route works
@@ -28,5 +32,14 @@ namespace BankTestProjectBackendOnion.API.Controllers
         {
             return Ok();
         }
+
+        [HttpGet("by-customer/{customerId}")]
+        
+        public async Task<IActionResult> GetAccountsByCustomerId(string customerId)
+        {
+            var result = await _mediator.Send(new GetAccountsByCustomerIdQuery(customerId));
+            return Ok(result);
+        }
+
     }
 }

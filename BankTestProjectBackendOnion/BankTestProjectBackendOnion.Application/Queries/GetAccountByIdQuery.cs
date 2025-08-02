@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using BankTestProjectBackendOnion.Application.DTOs.Account;
 
-namespace BankTestProjectBackendOnion.Application.Queries
+public class GetAccountsByCustomerIdQuery : IRequest<List<AccountSummaryDto>>
 {
-    internal class GetAccountByIdQuery
+    public string CustomerId { get; }
+
+    public GetAccountsByCustomerIdQuery(string customerId)
     {
+        CustomerId = customerId;
     }
 }

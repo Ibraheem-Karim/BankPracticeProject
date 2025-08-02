@@ -28,6 +28,7 @@ export class SingUpComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
+  
 
   onSubmit(): void {
     if (this.signUpForm.invalid) return;

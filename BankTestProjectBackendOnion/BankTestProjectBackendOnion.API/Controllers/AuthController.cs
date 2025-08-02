@@ -30,6 +30,7 @@ namespace BankTestProjectBackendOnion.API.Controllers
         }
 
         [HttpPost("login")]
+
         public async Task<IActionResult> Login(LoginDto dto)
         {
             var result = await _authService.LoginAsync(dto);

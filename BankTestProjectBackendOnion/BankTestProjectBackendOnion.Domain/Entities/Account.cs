@@ -19,5 +19,7 @@ public partial class Account
 
     public virtual Customer Customer { get; set; } = null!;
 
-    public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+    public virtual ICollection<Transaction> TransactionsSent { get; set; } = new List<Transaction>();
+    public virtual ICollection<Transaction> TransactionsReceived { get; set; } = new List<Transaction>();
+
 }

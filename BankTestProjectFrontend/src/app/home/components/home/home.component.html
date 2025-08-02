@@ -1,19 +1,18 @@
 <div class="home-container">
   <!-- Header Section -->
   <!-- Header Section -->
-<header class="bg-primary text-white py-4">
-  <div class="container d-flex justify-content-between align-items-center">
-    <div>
-      <h1 class="display-4">Welcome to Global Bank</h1>
-      <p class="lead">Your trusted financial partner</p>
-    </div>
+  <header class="bg-primary text-white py-4">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div>
+        <h1 class="display-4">Welcome to Global Bank</h1>
+        <p class="lead">Your trusted financial partner</p>
+      </div>
 
-    <div *ngIf="authService.isLoggedIn()">
-      <button class="btn btn-outline-light" (click)="logout()">Logout</button>
+      <div *ngIf="authService.isLoggedIn()">
+        <button class="btn btn-outline-light" (click)="logout()">Logout</button>
+      </div>
     </div>
-  </div>
-</header>
-
+  </header>
 
   <!-- Main Content -->
   <main class="container my-5">
@@ -90,7 +89,7 @@
                           Create a new checking, savings, or investment account.
                         </p>
                         <button
-                          (click)="navigateTo('/accounts/new')"
+                          (click)="navigateTo('/account/create-account')"
                           class="btn btn-success mt-3"
                         >
                           Create Account
@@ -114,10 +113,30 @@
                           </button>
                         </div>
                         <!-- Account Summary Component would go here -->
-                        <div class="alert alert-info">
-                          You currently have no accounts. Create an account to
-                          see its summary here.
+                        <div *ngIf="accounts.length > 0; else noAccounts">
+                          <div *ngFor="let account of accounts" class="mb-3">
+                            <div class="card p-3 shadow-sm">
+                              <h5 class="mb-2">
+                                Account Number: {{ account.accountNumber }}
+                              </h5>
+                              <p>Balance: {{ account.balance | currency }}</p>
+                              <p>
+                                Transactions: {{ account.transactionCount }}
+                              </p>
+                              <p>
+                                Created At:
+                                {{ account.createdAt | date : "mediumDate" }}
+                              </p>
+                            </div>
+                          </div>
                         </div>
+
+                        <ng-template #noAccounts>
+                          <div class="alert alert-info">
+                            You currently have no accounts. Create an account to
+                            see its summary here.
+                          </div>
+                        </ng-template>
                       </div>
                     </div>
                   </div>

@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Observable, tap } from 'rxjs';
 
-
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/api/auth`;
@@ -11,8 +10,8 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   register(data: any): Observable<any> {
-  return this.http.post(`${this.apiUrl}/register`, data);
-}
+    return this.http.post(`${this.apiUrl}/register`, data);
+  }
 
   login(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, data).pipe(
@@ -33,6 +32,26 @@ export class AuthService {
   }
 
   getToken(): string | null {
+    console.log('JWT Token:', localStorage.getItem('token'));
     return localStorage.getItem('token');
+  }
+
+  getUserId(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+
+      // Direct access to the full URI claim key
+      return (
+        payload[
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
+        ] || null
+      );
+    } catch (e) {
+      console.error('Failed to decode JWT', e);
+      return null;
+    }
   }
 }
