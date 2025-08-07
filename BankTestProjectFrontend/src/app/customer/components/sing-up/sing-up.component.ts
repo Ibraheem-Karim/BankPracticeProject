@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './sing-up.component.css',
 })
 export class SingUpComponent implements OnInit {
-  signUpForm!: FormGroup; // ✅ declare without initializing
+  signUpForm!: FormGroup;
 
   successMessage = '';
   errorMessage = '';
@@ -28,7 +28,6 @@ export class SingUpComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
-  
 
   onSubmit(): void {
     if (this.signUpForm.invalid) return;
@@ -39,7 +38,7 @@ export class SingUpComponent implements OnInit {
         this.errorMessage = '';
         this.signUpForm.reset();
 
-        this.router.navigate(['/customer/sign-in']); // redirect to sign-in after successful registration
+        this.router.navigate(['/customer/sign-in']);
       },
       error: (err) => {
         this.errorMessage = err.error?.message || 'Registration failed.';

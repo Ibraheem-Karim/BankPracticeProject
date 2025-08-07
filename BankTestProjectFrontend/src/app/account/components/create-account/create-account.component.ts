@@ -48,8 +48,6 @@ export class CreateAccountComponent implements OnInit {
       this.router.navigate(['/home']);
     });
 
-    // this.accountService.createAccount(payload).subscribe(() => {
-    //   this.router.navigate(['/home']);
-    // });
+    
   }
 }

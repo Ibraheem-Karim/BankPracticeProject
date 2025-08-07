@@ -5,15 +5,10 @@ import { AccountRoutingModule } from './account-routing.module';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
-  declarations: [
-    CreateAccountComponent
-  ],
-  imports: [
-    CommonModule,
-    AccountRoutingModule,
-    ReactiveFormsModule
-  ]
+  declarations: [CreateAccountComponent],
+  imports: [CommonModule, AccountRoutingModule, ReactiveFormsModule],
 })
-export class AccountModule { }
+export class AccountModule {}
+
+//Some extra code

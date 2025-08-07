@@ -17,7 +17,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, data).pipe(
       tap((res: any) => {
         if (res.data?.token) {
-          localStorage.setItem('token', res.data.token); // store token on successful login
+          localStorage.setItem('token', res.data.token); 
         }
       })
     );
@@ -43,7 +43,7 @@ export class AuthService {
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
 
-      // Direct access to the full URI claim key
+     
       return (
         payload[
           'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'

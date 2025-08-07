@@ -1,6 +1,4 @@
 <div class="home-container">
-  <!-- Header Section -->
-  <!-- Header Section -->
   <header class="bg-primary text-white py-4">
     <div class="container d-flex justify-content-between align-items-center">
       <div>
@@ -14,9 +12,7 @@
     </div>
   </header>
 
-  <!-- Main Content -->
   <main class="container my-5">
-    <!-- Guest View -->
     <div *ngIf="!authService.isLoggedIn()" class="guest-view text-center">
       <div *ngIf="true" class="guest-view text-center">
         <div class="card shadow-lg">
@@ -45,7 +41,6 @@
       </div>
     </div>
 
-    <!-- Authenticated User View -->
     <div *ngIf="authService.isLoggedIn()" class="authenticated-view">
       <div *ngIf="true" class="authenticated-view">
         <div class="row">
@@ -56,7 +51,6 @@
               </div>
               <div class="card-body">
                 <div class="row g-4">
-                  <!-- Quick Actions -->
                   <div class="col-md-6">
                     <div class="card h-100 border-0 shadow-sm">
                       <div class="card-body text-center">
@@ -112,7 +106,6 @@
                             View All
                           </button>
                         </div>
-                        <!-- Account Summary Component would go here -->
                         <div *ngIf="accounts.length > 0; else noAccounts">
                           <div *ngFor="let account of accounts" class="mb-3">
                             <div class="card p-3 shadow-sm">
@@ -149,7 +142,6 @@
     </div>
   </main>
 
-  <!-- Footer -->
   <footer class="bg-dark text-white py-4 mt-5">
     <div class="container text-center">
       <p class="mb-0">© 2023 Global Bank. All rights reserved.</p>

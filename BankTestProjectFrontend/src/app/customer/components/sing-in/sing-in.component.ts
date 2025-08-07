@@ -35,7 +35,7 @@ export class SingInComponent implements OnInit {
       next: (res) => {
         this.successMessage = res.message;
         this.errorMessage = '';
-        this.router.navigate(['/']); // Navigate to dashboard or home
+        this.router.navigate(['/']); 
       },
       error: (err) => {
         this.errorMessage = err.error?.message || 'Login failed.';
