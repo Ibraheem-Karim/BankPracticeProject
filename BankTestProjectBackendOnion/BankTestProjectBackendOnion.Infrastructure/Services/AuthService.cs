@@ -20,7 +20,7 @@ namespace BankTestProjectBackendOnion.Infrastructure.Services
             SignInManager<Customer> signInManager,
             IJwtTokenGenerator jwtTokenGenerator,
             IMapper mapper,
-            IAccountRepository accountRepository) // add this
+            IAccountRepository accountRepository) 
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -47,7 +47,6 @@ namespace BankTestProjectBackendOnion.Infrastructure.Services
                 };
             }
 
-            // Optional: Sign in automatically and return JWT
             var token = _jwtTokenGenerator.GenerateJwtToken(user);
 
             return new AuthResultDto
@@ -91,7 +90,7 @@ namespace BankTestProjectBackendOnion.Infrastructure.Services
 
         public Task LogoutAsync()
         {
-            // JWT is stateless, logout is client-side
+           
             return Task.CompletedTask;
         }
 
