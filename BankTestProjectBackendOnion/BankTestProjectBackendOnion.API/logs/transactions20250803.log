@@ -366,3 +366,23 @@ VALUES (@p12, @p13, @p14, @p15, @p16, @p17);
 2025-08-03 01:55:43.062 +03:00 [INF] Executed endpoint 'BankTestProjectBackendOnion.API.Controllers.TransactionsController.CreateTransaction (BankTestProjectBackendOnion.API)'
 2025-08-03 01:55:43.062 +03:00 [INF] Response sent from endpoint: BankTestProjectBackendOnion.API.Controllers.TransactionsController.CreateTransaction (BankTestProjectBackendOnion.API) at "2025-08-03T01:55:43.0621269+03:00"
 2025-08-03 01:55:43.062 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5263/api/transactions/new - 200 null application/json; charset=utf-8 15.4739ms
+2025-08-03 09:53:53.533 +03:00 [ERR] Transaction failed: From 66663832 to acc1111 for 44. Error: Insufficient balance
+System.Exception: Insufficient balance
+   at BankTestProjectBackendOnion.Application.Handlers.CreateTransactionHandler.Handle(CreateTransactionCommand request, CancellationToken cancellationToken) in C:\Users\abdel\Desktop\Bank studying related\BankTestProject\BankTestProjectBackendOnion\BankTestProjectBackendOnion.Application\Handlers\CreateTransactionHandler.cs:line 45
+2025-08-03 10:14:16.529 +03:00 [ERR] Transaction failed: From 66663832 to acc1111 for 33. Error: Insufficient balance
+System.Exception: Insufficient balance
+   at BankTestProjectBackendOnion.Application.Handlers.CreateTransactionHandler.Handle(CreateTransactionCommand request, CancellationToken cancellationToken) in C:\Users\abdel\Desktop\Bank studying related\BankTestProject\BankTestProjectBackendOnion\BankTestProjectBackendOnion.Application\Handlers\CreateTransactionHandler.cs:line 45
+2025-08-03 10:33:48.775 +03:00 [ERR] Transaction failed: From 66663832 to acc1111 for 33. Error: Insufficient balance
+System.Exception: Insufficient balance
+   at BankTestProjectBackendOnion.Application.Handlers.CreateTransactionHandler.Handle(CreateTransactionCommand request, CancellationToken cancellationToken) in C:\Users\abdel\Desktop\Bank studying related\BankTestProject\BankTestProjectBackendOnion\BankTestProjectBackendOnion.Application\Handlers\CreateTransactionHandler.cs:line 46
+2025-08-03 10:34:29.015 +03:00 [ERR] Transaction failed: From 66663832 to 32 for 46. Error: Invalid account number(s)
+System.Exception: Invalid account number(s)
+   at BankTestProjectBackendOnion.Application.Handlers.CreateTransactionHandler.Handle(CreateTransactionCommand request, CancellationToken cancellationToken) in C:\Users\abdel\Desktop\Bank studying related\BankTestProject\BankTestProjectBackendOnion\BankTestProjectBackendOnion.Application\Handlers\CreateTransactionHandler.cs:line 43
+2025-08-03 10:46:19.850 +03:00 [INF] Initiating transaction: From 66663832 to acc1111 for 66 - test
+2025-08-03 10:46:20.063 +03:00 [INF] Transaction completed successfully: 19, From 66663832 to acc1111, Amount: 66, Time: "2025-08-03T07:46:20.0630667Z"
+2025-08-03 10:47:02.514 +03:00 [INF] Initiating transaction: From 66663832 to acc1111 for 44 - test
+2025-08-03 10:47:02.528 +03:00 [INF] Transaction completed successfully: 20, From 66663832 to acc1111, Amount: 44, Time: "2025-08-03T07:47:02.5284874Z"
+2025-08-03 10:53:08.723 +03:00 [INF] Initiating transaction: From 66663832 to acc1111 for 1000 - one thousand pounds transaction
+2025-08-03 10:53:08.736 +03:00 [INF] Transaction completed successfully: 21, From 66663832 to acc1111, Amount: 1000, Time: "2025-08-03T07:53:08.7362890Z"
+2025-08-03 10:53:47.585 +03:00 [INF] Initiating transaction: From 66663832 to acc1111 for 1000 - test 222
+2025-08-03 10:53:47.598 +03:00 [INF] Transaction completed successfully: 22, From 66663832 to acc1111, Amount: 1000, Time: "2025-08-03T07:53:47.5984938Z"

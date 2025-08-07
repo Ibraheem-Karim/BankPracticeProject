@@ -5,18 +5,14 @@ import { AccountService } from '../../../core/services/account.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 
-
-
-
 @Component({
-   selector: 'app-create-account',
+  selector: 'app-create-account',
   standalone: false,
   templateUrl: './create-account.component.html',
-  styleUrl: './create-account.component.css'
+  styleUrl: './create-account.component.css',
 })
 export class CreateAccountComponent implements OnInit {
   accountForm!: FormGroup;
-  
 
   constructor(
     private fb: FormBuilder,
@@ -41,12 +37,19 @@ export class CreateAccountComponent implements OnInit {
 
     const payload = {
       ...this.accountForm.value,
-      customerId
+      customerId,
     };
 
     this.accountService.createAccount(payload).subscribe(() => {
+      this.accountService
+        .getAccountsByCustomerId(customerId)
+        .subscribe(() => {});
+
       this.router.navigate(['/home']);
     });
+
+    // this.accountService.createAccount(payload).subscribe(() => {
+    //   this.router.navigate(['/home']);
+    // });
   }
 }
-

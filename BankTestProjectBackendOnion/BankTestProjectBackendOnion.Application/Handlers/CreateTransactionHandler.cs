@@ -34,6 +34,7 @@ public class CreateTransactionHandler : IRequestHandler<CreateTransactionCommand
         try
         {
             var fromAccount = (await _accountRepo.GetAllAsync())
+                .OrderByDescending(a => a.Balance)
                 .FirstOrDefault(a => a.AccountNumber == dto.FromAccountNumber);
             var toAccount = (await _accountRepo.GetAllAsync())
                 .FirstOrDefault(a => a.AccountNumber == dto.ToAccountNumber);

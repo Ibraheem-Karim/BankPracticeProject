@@ -75,12 +75,32 @@ namespace BankTestProjectBackendOnion.API
 
 
             // Configure Serilog
+            //Log.Logger = new LoggerConfiguration()
+            //    .MinimumLevel.Information()
+            //    .WriteTo.File("logs/transactions.log",
+            //        rollingInterval: RollingInterval.Day,
+            //        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+            //    .CreateLogger();
+
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.File("logs/transactions.log",
-                    rollingInterval: RollingInterval.Day,
-                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
-                .CreateLogger();
+              .MinimumLevel.Information()
+              .WriteTo.Console( // Middleware logs -> Console
+                  outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}",
+                  restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information
+              )
+              .WriteTo.Logger(lc => lc // Transaction logs -> File
+                  .Filter.ByIncludingOnly(evt =>
+                      evt.Properties.ContainsKey("SourceContext") &&
+                      evt.Properties["SourceContext"].ToString().Contains("CreateTransactionHandler"))
+                  .WriteTo.File("logs/transactions.log",
+                      rollingInterval: RollingInterval.Day,
+                      outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+              )
+              .CreateLogger();
+
+
+
+
 
             builder.Host.UseSerilog();
 
